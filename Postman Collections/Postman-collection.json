@@ -94,7 +94,22 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{BaseURL}}/books/H-2e6J06IPKW394"
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
 			},
 			"response": []
 		},
