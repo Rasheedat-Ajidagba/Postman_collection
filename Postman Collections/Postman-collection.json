@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "a969f2da-6ddb-4e26-9be8-e71192dc358c",
+		"name": "Library API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffa2d8f2-a84e-4992-bdf8-3d1110190cd6",
+						"exec": [
+							"// Fixed SyntaxError by changing 'to.be String' to 'to.be.a('string')'",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test('Response has the required fields', () => {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"    pm.expect(pm.response.json()).to.not.be.empty;",
+							"    pm.response.json().forEach(function (book) {",
+							"        pm.expect(book).to.have.property('title');",
+							"        pm.expect(book).to.have.property('author');",
+							"        pm.expect(book).to.have.property('id');",
+							"        pm.expect(book).to.have.property('genre');",
+							"        pm.expect(book).to.have.property('yearPublished');",
+							"        pm.expect(book).to.have.property('checkedOut');",
+							"        pm.expect(book).to.have.property('createdAt');",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "ad7c5019-8061-4270-a202-5b5649ae6215",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/books/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get single book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43350720-ba67-43e6-8b3a-9d048cb3b389",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"book=response.id;",
+							"pm.collectionVariables.set(\"id\", book);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "78c01433-8ec0-4ee8-9ee5-e304f68de2de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "71fe5b44-7851-4ff3-9334-8378a1bcb940",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/books/SWynmquqeFMwJqG"
+			},
+			"response": []
+		},
+		{
+			"name": "Add book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43350720-ba67-43e6-8b3a-9d048cb3b389",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"book=response.id;",
+							"pm.collectionVariables.set(\"id\", book);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "a160a7b3-e3f9-40e2-bf59-03c58871d3a2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseURL}}/books"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book",
+			"id": "a0a44a39-91fb-4cc5-9ea9-535968426742",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"checkedOut\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book",
+			"id": "3cce706d-fed6-4a3a-b1fd-026da88f88b5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://postman-library-api.glitch.me"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
