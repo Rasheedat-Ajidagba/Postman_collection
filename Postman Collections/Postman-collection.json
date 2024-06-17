@@ -67,6 +67,9 @@
 							"var response = pm.response.json();",
 							"book=response.id;",
 							"pm.collectionVariables.set(\"id\", book);",
+							"",
+							"",
+							"pm.collectionVariables.set(\"variable_key\", \"variable_value\");",
 							""
 						],
 						"type": "text/javascript",
@@ -92,7 +95,22 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{BaseURL}}/books/lz1_njGmrhj9zlT"
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -210,6 +228,10 @@
 		},
 		{
 			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "variable_key",
 			"value": ""
 		}
 	]
