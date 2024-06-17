@@ -69,7 +69,6 @@
 							"pm.collectionVariables.set(\"id\", book);",
 							"",
 							"",
-							"pm.collectionVariables.set(\"variable_key\", \"variable_value\");",
 							""
 						],
 						"type": "text/javascript",
@@ -95,22 +94,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{BaseURL}}/books/:id",
-					"host": [
-						"{{BaseURL}}"
-					],
-					"path": [
-						"books",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "{{id}}"
-						}
-					]
-				}
+				"url": "{{BaseURL}}/books/H-2e6J06IPKW394"
 			},
 			"response": []
 		},
