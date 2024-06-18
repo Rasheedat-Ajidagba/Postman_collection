@@ -83,9 +83,10 @@
 							"  pm.expect(response).to.be.an('object');",
 							"});",
 							"",
-							"pm.test(\"Available field is a boolean value,true or false\", () =>  {",
+							"pm.test(\"checkedOut is a boolean value,true or false\", () =>  {",
 							"  pm.expect(response.checkedOut).to.be.oneOf([true, false]);",
-							"});"
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -150,7 +151,7 @@
 							"    pm.expect(response.message).to.not.be.empty;",
 							"});",
 							"",
-							"pm.test(\"Verify that orderId field is a string\", ()=> {",
+							"pm.test(\"Verify that message is a string\", ()=> {",
 							"   var response = pm.response.json();",
 							"  pm.expect(response.message).to.be.a('string');",
 							"});"
@@ -246,6 +247,24 @@
 		},
 		{
 			"name": "Delete book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "915942d0-ec7c-419d-ad33-1a45e4aaf003",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "3cce706d-fed6-4a3a-b1fd-026da88f88b5",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
