@@ -73,7 +73,14 @@
 							"pm.test(\"Response time is less than 500ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(500);",
 							"});",
-							""
+							"",
+							"pm.test(\"Response should be an object\", () =>  {",
+							"  pm.expect(response).to.be.an('object');",
+							"});",
+							"",
+							"pm.test(\"Available field is a boolean value,true or false\", () =>  {",
+							"  pm.expect(response.checkedOut).to.be.oneOf([true, false]);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
