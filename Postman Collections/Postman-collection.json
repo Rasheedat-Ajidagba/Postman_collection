@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "a969f2da-6ddb-4e26-9be8-e71192dc358c",
+		"name": "Library API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e942533-6e0d-4bb2-a4d3-ad18d708375d",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Response body should not be empty', () => {",
+							"    pm.expect(pm.response.json()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test('Response has the required fields', () => {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"    pm.expect(pm.response.json()).to.not.be.empty;",
+							"    pm.response.json().forEach(function (book) {",
+							"        pm.expect(book).to.have.property('title');",
+							"        pm.expect(book).to.have.property('author');",
+							"        pm.expect(book).to.have.property('id');",
+							"        pm.expect(book).to.have.property('genre');",
+							"        pm.expect(book).to.have.property('yearPublished');",
+							"        pm.expect(book).to.have.property('checkedOut');",
+							"        pm.expect(book).to.have.property('createdAt');",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "ad7c5019-8061-4270-a202-5b5649ae6215",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/books/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get single book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43350720-ba67-43e6-8b3a-9d048cb3b389",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"book=response.id;",
+							"pm.collectionVariables.set(\"id\", book);",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Response should be an object\", () =>  {",
+							"  pm.expect(response).to.be.an('object');",
+							"});",
+							"",
+							"pm.test(\"checkedOut is a boolean value,true or false\", () =>  {",
+							"  pm.expect(response.checkedOut).to.be.oneOf([true, false]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "78c01433-8ec0-4ee8-9ee5-e304f68de2de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "71fe5b44-7851-4ff3-9334-8378a1bcb940",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43350720-ba67-43e6-8b3a-9d048cb3b389",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"author should not be empty\", ()=> {",
+							"    var response = pm.response.json();  ",
+							"    pm.expect(response.message).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Verify that message is a string\", ()=> {",
+							"   var response = pm.response.json();",
+							"  pm.expect(response.message).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "a160a7b3-e3f9-40e2-bf59-03c58871d3a2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseURL}}/books"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b06a023c-88bf-43e4-b914-419516820b83",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Response should be an object\", () =>  {",
+							"  var response = pm.response.json(); ",
+							"  pm.expect(response).to.be.an('object');",
+							"  ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "a0a44a39-91fb-4cc5-9ea9-535968426742",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"checkedOut\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4K5sfJZIJaC3kuV"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "915942d0-ec7c-419d-ad33-1a45e4aaf003",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "3cce706d-fed6-4a3a-b1fd-026da88f88b5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/books/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1632f973-40b1-482a-8d34-1a46d53a58e3",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2dd934e2-8a08-4395-a7fc-4afd5a783b54",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://postman-library-api.glitch.me"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
