@@ -125,9 +125,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var response = pm.response.json();",
-							"book=response.id;",
-							"pm.collectionVariables.set(\"id\", book);"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -220,6 +218,30 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2aeb1f1b-3233-4047-9435-bcda00b4f4e3",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c76e11c6-952c-4012-82f0-f4020ae0d580",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "BaseURL",
@@ -227,10 +249,6 @@
 		},
 		{
 			"key": "id",
-			"value": ""
-		},
-		{
-			"key": "variable_key",
 			"value": ""
 		}
 	]
