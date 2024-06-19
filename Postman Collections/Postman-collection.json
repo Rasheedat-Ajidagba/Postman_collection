@@ -66,7 +66,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "43350720-ba67-43e6-8b3a-9d048cb3b389",
+						"id": "d1fb34ad-f2a3-4b33-bb2d-1c95cf869092",
 						"exec": [
 							"",
 							"pm.test(\"Status code is 200\", function () {",
@@ -84,11 +84,9 @@
 							"pm.test(\"Response should be an object\", () =>  {",
 							"  pm.expect(response).to.be.an('object');",
 							"});",
-							"",
 							"pm.test(\"checkedOut is a boolean value,true or false\", () =>  {",
 							"  pm.expect(response.checkedOut).to.be.oneOf([true, false]);",
-							"});",
-							""
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -97,7 +95,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "78c01433-8ec0-4ee8-9ee5-e304f68de2de",
+						"id": "2d2e5aaf-208e-4dc7-b0f3-78f2ad0f4d0f",
 						"exec": [
 							""
 						],
